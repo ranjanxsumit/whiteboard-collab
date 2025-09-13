@@ -6,6 +6,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import roomRoutes from './routes/roomRoutes.js';
 import { registerSocketHandlers } from './socket/index.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 dotenv.config();
 
@@ -15,6 +17,17 @@ app.use(cors({ origin: process.env.CORS_ORIGIN?.split(',') || '*'}));
 
 app.get('/health', (_req, res) => res.json({ status: 'ok', time: Date.now() }));
 app.use('/api/rooms', roomRoutes);
+
+// Serve client build in production
+if (process.env.NODE_ENV === 'production') {
+	const __filename = fileURLToPath(import.meta.url);
+	const __dirname = path.dirname(__filename);
+	const clientDist = path.join(__dirname, '..', 'client', 'dist');
+	app.use(express.static(clientDist));
+	app.get('*', (_req, res) => {
+		res.sendFile(path.join(clientDist, 'index.html'));
+	});
+}
 
 const PORT = process.env.PORT || 4000;
 const server = http.createServer(app);

@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: whiteboard-collab
+    env: node
+    plan: free
+    buildCommand: npm install --workspaces && npm run build
+    startCommand: npm start
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 4000
+      - key: MONGODB_URI
+        sync: false
+      - key: CORS_ORIGIN
+        value: https://your-frontend-domain

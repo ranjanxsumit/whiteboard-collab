@@ -6,7 +6,9 @@
     "install:all": "npm install --workspaces",
     "dev": "concurrently \"npm:dev:server\" \"npm:dev:client\"",
     "dev:server": "npm run dev --workspace=server",
-    "dev:client": "npm run dev --workspace=client"
+    "dev:client": "npm run dev --workspace=client",
+    "build": "npm run build --workspace=client",
+    "start": "NODE_ENV=production node server/server.js"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
