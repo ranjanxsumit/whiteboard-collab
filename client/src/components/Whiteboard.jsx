@@ -16,8 +16,16 @@ export default function Whiteboard({ roomId, userId, onLeave }) {
 	const canvasApiRef = useRef(null);
 
 	useEffect(() => {
-		const base = import.meta.env.VITE_SOCKET_URL || 'http://localhost:4000';
-		const socket = io(base, { path: '/socket.io', transports: ['websocket','polling'] });
+		// Determine socket base: explicit env > same-origin (production) > localhost dev
+		let base = import.meta.env.VITE_SOCKET_URL;
+		if (!base) {
+			if (window.location.hostname !== 'localhost') {
+				base = window.location.origin; // deployed same-origin
+			} else {
+				base = 'http://localhost:4000';
+			}
+		}
+		const socket = io(base, { transports: ['websocket','polling'] });
 		socketRef.current = socket;
 		socket.on('connect', () => {
 			setConnected(true);
