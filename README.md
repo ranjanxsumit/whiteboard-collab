@@ -2,6 +2,11 @@
 
 Real-time collaborative whiteboard built with MERN + Socket.io. Supports incremental stroke streaming, cursor presence, and persistent room history.
 
+<img width="1754" height="842" alt="image" src="https://github.com/user-attachments/assets/43c5c63a-8a16-4682-b22e-1d623df67056" />
+
+<img width="1905" height="878" alt="image" src="https://github.com/user-attachments/assets/1f9ab5e9-3690-4d8c-bedf-7539abd9f058" />
+
+
 ## Features
 - Join/create rooms by simple 6-8 char code
 - Live multi-user drawing (pencil only) with color + stroke width
